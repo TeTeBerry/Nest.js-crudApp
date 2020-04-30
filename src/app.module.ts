@@ -3,18 +3,20 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ContactsModule } from './contacts/contacts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Contact } from './contacts/contact.entity';
+import { config } from './config';
 
 @Module({
   imports: [
-    ContactsModule,
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      type: 'mysql',
+      ...config.mysql,
+      entities: [Contact],
       synchronize: true,
     }),
+    ContactsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

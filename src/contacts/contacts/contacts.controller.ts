@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, HttpStatus, HttpCode } from '@nestjs/common';
 import { Contact } from '../contact.entity';
 import { ContactsService } from './contacts.service';
 import { Post, Put, Delete, Body, Param } from '@nestjs/common';
@@ -12,6 +12,7 @@ export class ContactsController {
     return this.contactsService.findAll();
   }
   @Post('create')
+  @HttpCode(HttpStatus.OK)
   async create(@Body() contactData: Contact): Promise<any> {
     return this.contactsService.create(contactData);
   }
